@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'image-search',
@@ -6,7 +7,10 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./image-search.component.scss'],
 })
 export class ImageSearchComponent implements OnInit {
+  images$: Observable<string>;
   constructor() {}
 
   ngOnInit(): void {}
+
+  search(text: string) {}
 }

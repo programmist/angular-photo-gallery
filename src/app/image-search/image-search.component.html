@@ -1,1 +1,13 @@
-<p>image-search works!</p>
+<div id="search-component">
+  <input
+    #imgSrchInput
+    id="img-search-input"
+    (input)="search(imgSrchInput.value)"
+  />
+
+  <ul class="search-result">
+    <li *ngFor="let image of images$ | async">
+      <img src="{{ image }}" />
+    </li>
+  </ul>
+</div>
