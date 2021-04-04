@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Image } from '../types/Image';
+import { MediaService } from '../media.service';
 
 @Component({
   selector: 'image-search',
@@ -7,10 +8,16 @@ import { Observable } from 'rxjs';
   styleUrls: ['./image-search.component.scss'],
 })
 export class ImageSearchComponent implements OnInit {
-  images$: Observable<string>;
-  constructor() {}
+  images: Image[];
+
+  constructor(private mediaService: MediaService) {}
 
   ngOnInit(): void {}
 
-  search(text: string) {}
+  // TODO: Add loading indicator
+  search(term: string): void {
+    this.mediaService.searchImages(term).subscribe((res) => {
+      this.images = res.photos;
+    });
+  }
 }
