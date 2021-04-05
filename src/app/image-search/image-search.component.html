@@ -1,14 +1,17 @@
 <!-- TODO: Also search on enter key press -->
 <div id="search-component">
-  <input #imgSrchInput id="img-search-input" />
+  <!-- TODO: Remove `value` -->
+  <input #imgSrchInput id="img-search-input" value="computer" />
   <button (click)="search(imgSrchInput.value)">Search</button>
 
-  <ul class="search-result">
-    <li *ngFor="let image of images">
+  <div class="images-container">
+    <figure *ngFor="let image of images; index as i">
       <img
+        class="image"
         title="photo by {{ image.photographer }}"
-        src="{{ image.src.small }}"
+        alt="Image {{ i + 1 }}"
+        src="{{ image.src.medium }}"
       />
-    </li>
-  </ul>
+    </figure>
+  </div>
 </div>

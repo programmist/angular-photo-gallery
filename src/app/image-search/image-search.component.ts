@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Image } from '../types/Image';
 import { MediaService } from '../media.service';
+import { RESPONSE } from './mock-search-response';
 
 @Component({
   selector: 'image-search',
@@ -8,7 +9,8 @@ import { MediaService } from '../media.service';
   styleUrls: ['./image-search.component.scss'],
 })
 export class ImageSearchComponent implements OnInit {
-  images: Image[];
+  // TODO: Remove hard-code response after styling
+  images: Image[] = RESPONSE.photos;
 
   constructor(private mediaService: MediaService) {}
 
