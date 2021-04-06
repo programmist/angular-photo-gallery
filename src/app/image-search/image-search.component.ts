@@ -25,7 +25,7 @@ export class ImageSearchComponent implements OnInit {
     });
   }
 
-  openModal(image) {
+  openModal(image: Image): void {
     this.dialog.open(ImageModalComponent, {
       data: image,
     });
