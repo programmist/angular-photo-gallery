@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Image } from '../types/Image';
 import { MediaService } from '../media.service';
 import { RESPONSE } from './mock-search-response';
+import { ImageModalComponent } from '../image-modal/image-modal.component';
 
 @Component({
   selector: 'image-search',
@@ -12,7 +14,7 @@ export class ImageSearchComponent implements OnInit {
   // TODO: Remove hard-code response after styling
   images: Image[] = RESPONSE.photos;
 
-  constructor(private mediaService: MediaService) {}
+  constructor(private mediaService: MediaService, private dialog: MatDialog) {}
 
   ngOnInit(): void {}
 
@@ -20,6 +22,12 @@ export class ImageSearchComponent implements OnInit {
   search(term: string): void {
     this.mediaService.searchImages(term).subscribe((res) => {
       this.images = res.photos;
+    });
+  }
+
+  openModal(image) {
+    this.dialog.open(ImageModalComponent, {
+      data: image,
     });
   }
 }

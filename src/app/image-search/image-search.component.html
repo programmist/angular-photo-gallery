@@ -5,7 +5,7 @@
   <button (click)="search(imgSrchInput.value)">Search</button>
 
   <div class="images-container">
-    <figure *ngFor="let image of images; index as i">
+    <figure *ngFor="let image of images; index as i" (click)="openModal(image)">
       <img
         class="image"
         title="photo by {{ image.photographer }}"

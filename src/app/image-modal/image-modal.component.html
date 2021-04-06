@@ -1,0 +1,13 @@
+<div class="image-detail">
+  <h1>By {{ image.photographer }}</h1>
+  <figure>
+    <img
+      title="photo by {{ image.photographer }}"
+      alt="photo by {{ image.photographer }}"
+      src="{{ image.src.large }}"
+    />
+  </figure>
+  <a href="{{ image.src.original }}" target="_blank" download>
+    <button>Download Image</button>
+  </a>
+</div>
