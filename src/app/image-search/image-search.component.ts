@@ -27,7 +27,9 @@ export class ImageSearchComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit(): void {
     this.observer = new IntersectionObserver(([entry]) => {
-      if (entry.isIntersecting && this.images.length > 0) this.nextPage();
+      if (entry.isIntersecting && this.images.length > 0) {
+        this.nextPage();
+      }
     }, {});
 
     this.observer.observe(this.loadingIndicator.nativeElement);
