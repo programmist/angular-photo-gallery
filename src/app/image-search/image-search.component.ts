@@ -7,12 +7,13 @@ import {
 } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Image } from '../types/Image';
-import { MediaService } from '../media.service';
+import { MediaService } from '../media-service/media.service';
 import { ImageModalComponent } from '../image-modal/image-modal.component';
 import { AfterViewInit } from '@angular/core';
 import { Subject } from 'rxjs';
 import { ImgApiResponse } from '../types/ApiResponse';
 import { RESPONSE } from './mock-search-response';
+import { Query } from '../media-service/Query';
 
 @Component({
   selector: 'image-search',
@@ -24,26 +25,26 @@ export class ImageSearchComponent implements OnInit, OnDestroy, AfterViewInit {
   images: Image[] = RESPONSE.photos; //[]; TODO: Remove after testing
   private observer: IntersectionObserver;
   private imageStream = new Subject<Image[]>();
-  private currentResult: ImgApiResponse = RESPONSE; // TODO: Remove after testing
+  private currentQuery: Query;
 
-  constructor(
-    private mediaService: MediaService,
-    private dialog: MatDialog,
-    private host: ElementRef<HTMLElement>
-  ) {}
+  constructor(private mediaService: MediaService, private dialog: MatDialog) {}
 
   ngOnInit(): void {
     this.imageStream.subscribe((images: Image[]) => {
-      this.images = [...this.images, ...images];
+      this.images.push(...images);
     });
   }
 
   ngAfterViewInit(): void {
-    this.observer = new IntersectionObserver(([entry]) => {
-      if (entry.isIntersecting && this.images.length > 0) {
-        this.nextPage();
-      }
-    }, {});
+    // Trigger next page load when sentinel element scroll into view
+    this.observer = new IntersectionObserver(
+      ([entry]: IntersectionObserverEntry[]) => {
+        if (entry.isIntersecting && this.images.length > 0) {
+          this.nextPage();
+        }
+      },
+      {}
+    );
     this.observer.observe(this.loadingIndicator.nativeElement);
   }
 
@@ -51,23 +52,37 @@ export class ImageSearchComponent implements OnInit, OnDestroy, AfterViewInit {
     this.observer.disconnect();
   }
 
-  // TODO: DRY up repetitive code
+  /**
+   * Initiate new image search
+   *
+   * @param term The search term
+   * @param event The DOM event
+   */
   search(term: string, event: Event): void {
     event.preventDefault();
-    this.mediaService.searchImages(term).subscribe((res) => {
-      this.currentResult = res;
+    this.mediaService.searchImages(term).subscribe((query: Query) => {
       this.images = [];
-      this.imageStream.next(res.photos);
+      this.imageStream.next(query.mediaResults);
+      this.currentQuery = query;
     });
   }
 
+  /**
+   * Append next page of results, if available
+   */
   nextPage(): void {
-    this.mediaService.get(this.currentResult.next_page).subscribe((res) => {
-      this.currentResult = res;
-      this.imageStream.next(res.photos);
-    });
+    if (this.currentQuery.hasNext) {
+      this.currentQuery.nextPage().subscribe((res: ImgApiResponse) => {
+        this.imageStream.next(res.photos);
+      });
+    }
   }
 
+  /**
+   * Open the image modal
+   *
+   * @param image The image to display
+   */
   openModal(image: Image): void {
     this.dialog.open(ImageModalComponent, {
       data: image,
