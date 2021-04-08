@@ -1,32 +1,43 @@
 #search-component {
   .search-container {
     display: flex;
-    flex-direction: column;
     border: 0;
     border-radius: 6px;
     margin: auto;
     width: 50%;
     margin-bottom: 50px;
+    border: 1px solid #ccc;
 
     input {
-      width: 100%;
-      padding: 12px 20px;
-      margin: 8px 0;
-      display: inline-block;
-      border: 1px solid #ccc;
-      border-radius: 6px;
-      box-sizing: border-box;
+      display: block;
+      font-size: 17px;
+      line-height: 22px;
+      flex: 1;
+      border-top-left-radius: 6px;
+      border-bottom-left-radius: 6px;
+      border: none;
+      outline: none;
+      color: #555;
+      padding: 0.9rem 1.25rem;
+      font-size: 22px;
     }
 
     button {
-      width: 100%;
-      background-color: #4caf50;
-      color: white;
-      padding: 14px 20px;
-      margin: 8px 0;
       border: none;
-      border-radius: 4px;
+      outline: none;
+      background: 0 0;
+      border-top-right-radius: 6px;
+      border-bottom-right-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0 1rem;
       cursor: pointer;
+
+      & > :active {
+        color: #3f51b5;
+        font-weight: bold;
+      }
     }
   }
 

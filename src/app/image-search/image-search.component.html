@@ -2,8 +2,21 @@
 <div id="search-component">
   <!-- TODO: Remove `value` -->
   <div class="search-container">
-    <input #imgSrchInput id="img-search-input" value="computer" />
-    <button type="submit" (click)="search(imgSrchInput.value)">Search</button>
+    <input
+      #imgSrchInput
+      id="img-search-input"
+      value="computer"
+      placeholder="Search for photos"
+    />
+    <button
+      aria-label="Search Button"
+      type="submit"
+      (click)="search(imgSrchInput.value)"
+    >
+      <mat-icon aria-hidden="false" aria-label="Example home icon">
+        search
+      </mat-icon>
+    </button>
   </div>
 
   <div class="images-container">
