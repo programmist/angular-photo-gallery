@@ -15,6 +15,8 @@
     </figure>
   </div>
   <div #loading>
-    <span *ngIf="images.length > 0">loading...</span>
+    <div *ngIf="images.length > 0" class="spinner-container">
+      <mat-spinner diameter="50"></mat-spinner>
+    </div>
   </div>
 </div>

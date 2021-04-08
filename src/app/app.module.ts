@@ -7,6 +7,7 @@ import { ImageSearchComponent } from './image-search/image-search.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatDialogModule } from '@angular/material/dialog';
 import { ImageModalComponent } from './image-modal/image-modal.component';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @NgModule({
   declarations: [AppComponent, ImageSearchComponent, ImageModalComponent],
@@ -15,6 +16,7 @@ import { ImageModalComponent } from './image-modal/image-modal.component';
     HttpClientModule,
     BrowserAnimationsModule,
     MatDialogModule,
+    MatProgressSpinnerModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

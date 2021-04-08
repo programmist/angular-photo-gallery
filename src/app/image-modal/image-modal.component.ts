@@ -1,6 +1,5 @@
 import { Component, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { MediaService } from '../media.service';
 import { Image } from '../types/Image';
 
 @Component({
