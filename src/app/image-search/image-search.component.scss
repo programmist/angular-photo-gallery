@@ -1,4 +1,35 @@
 #search-component {
+  .search-container {
+    display: flex;
+    flex-direction: column;
+    border: 0;
+    border-radius: 6px;
+    margin: auto;
+    width: 50%;
+    margin-bottom: 50px;
+
+    input {
+      width: 100%;
+      padding: 12px 20px;
+      margin: 8px 0;
+      display: inline-block;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      box-sizing: border-box;
+    }
+
+    button {
+      width: 100%;
+      background-color: #4caf50;
+      color: white;
+      padding: 14px 20px;
+      margin: 8px 0;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+  }
+
   .images-container {
     display: grid;
     grid-gap: 45px;
