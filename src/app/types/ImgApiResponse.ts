@@ -4,6 +4,6 @@ export interface ImgApiResponse {
   page: number;
   per_page: number;
   total_results: number;
-  next_page: number;
+  next_page: string;
   photos: Image[];
 }

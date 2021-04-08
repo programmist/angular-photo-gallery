@@ -7,9 +7,9 @@ import { ImgApiResponse } from './types/ImgApiResponse';
   providedIn: 'root',
 })
 export class MediaService {
-  private imgSrcUrl = 'https://api.pexels.com/v1/search';
   // FIXME: Get from environment variable instead (.env)
   private API_KEY = '563492ad6f917000010000011e0c663dc7004d84affdeeb485a38207';
+  private imgSrcUrl = 'https://api.pexels.com/v1/search';
   httpOptions = {
     headers: new HttpHeaders({
       Authorization: this.API_KEY,
@@ -26,5 +26,9 @@ export class MediaService {
   ): Observable<ImgApiResponse> {
     const searchUrl = `${this.imgSrcUrl}?query=${term}&per_page=${perPage}&page=${page}`;
     return this.http.get<ImgApiResponse>(searchUrl, this.httpOptions);
+  }
+
+  get(url: string): Observable<ImgApiResponse> {
+    return this.http.get<ImgApiResponse>(url, this.httpOptions);
   }
 }
