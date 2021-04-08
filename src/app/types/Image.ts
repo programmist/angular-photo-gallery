@@ -3,9 +3,12 @@ export interface Image {
   width: number;
   height: number;
   url: string;
+  photographer_id: number;
   photographer: string;
   photographer_url: string;
+  avg_color: string;
   src: SizeVariations;
+  liked: boolean;
 }
 
 interface SizeVariations {

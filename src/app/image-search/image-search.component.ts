@@ -11,7 +11,7 @@ import { MediaService } from '../media.service';
 import { ImageModalComponent } from '../image-modal/image-modal.component';
 import { AfterViewInit } from '@angular/core';
 import { Subject } from 'rxjs';
-import { ImgApiResponse } from '../types/ImgApiResponse';
+import { ImgApiResponse } from '../types/ApiResponse';
 import { RESPONSE } from './mock-search-response';
 
 @Component({

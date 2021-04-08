@@ -1,5 +1,8 @@
+import { Image } from '../types/Image';
+import { ImgApiResponse } from '../types/ApiResponse';
+
 // TODO: For testing. Remove me.
-export const RESPONSE = {
+export const RESPONSE: ImgApiResponse = {
   page: 1,
   per_page: 30,
   photos: [
