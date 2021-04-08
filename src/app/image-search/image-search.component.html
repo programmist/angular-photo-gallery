@@ -1,20 +1,17 @@
-<!-- TODO: Also search on enter key press -->
 <div id="search-component">
   <!-- TODO: Remove `value` -->
   <div class="search-container">
-    <input
-      #imgSrchInput
-      id="img-search-input"
-      value="computer"
-      placeholder="Search for photos"
-    />
-    <button
-      aria-label="Search Button"
-      type="submit"
-      (click)="search(imgSrchInput.value)"
-    >
-      <mat-icon aria-label="Example home icon"> search </mat-icon>
-    </button>
+    <form (submit)="search(imgSrchInput.value, $event)">
+      <input
+        #imgSrchInput
+        id="img-search-input"
+        value="computer"
+        placeholder="Search for photos"
+      />
+      <button aria-label="Search Button" type="submit">
+        <mat-icon aria-label="Example home icon"> search </mat-icon>
+      </button>
+    </form>
   </div>
 
   <div class="images-container">

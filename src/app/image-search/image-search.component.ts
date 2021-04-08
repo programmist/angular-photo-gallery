@@ -6,6 +6,7 @@ import { ImageModalComponent } from '../image-modal/image-modal.component';
 import { AfterViewInit } from '@angular/core';
 import { Subject } from 'rxjs';
 import { ImgApiResponse } from '../types/ImgApiResponse';
+import { RESPONSE } from './mock-search-response';
 
 @Component({
   selector: 'image-search',
@@ -14,10 +15,10 @@ import { ImgApiResponse } from '../types/ImgApiResponse';
 })
 export class ImageSearchComponent implements OnInit, AfterViewInit {
   @ViewChild('loading') loadingIndicator: ElementRef<HTMLElement>;
-  images: Image[] = [];
+  images: Image[] = RESPONSE.photos; //[]; TODO: Remove after testing
   private observer: IntersectionObserver;
   private imageStream = new Subject<Image[]>();
-  private currentResult: ImgApiResponse;
+  private currentResult: ImgApiResponse = RESPONSE; // TODO: Remove after testing
 
   constructor(
     private mediaService: MediaService,
@@ -42,7 +43,8 @@ export class ImageSearchComponent implements OnInit, AfterViewInit {
   }
 
   // TODO: DRY up repetitive code
-  search(term: string): void {
+  search(term: string, event: Event): void {
+    event.preventDefault();
     this.mediaService.searchImages(term).subscribe((res) => {
       this.currentResult = res;
       this.images = [];
