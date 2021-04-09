@@ -1,31 +1,35 @@
 <div id="search-component">
-  <!-- TODO: Remove `value` -->
-  <div class="search-container">
-    <form (submit)="search(imgSrchInput.value, $event)">
-      <input
-        #imgSrchInput
-        id="img-search-input"
-        value="computer"
-        placeholder="Search for photos"
-      />
-      <button aria-label="Search Button" type="submit">
-        <mat-icon aria-label="Example home icon"> search </mat-icon>
-      </button>
-    </form>
+  <div *ngIf="!loading">
+    <div class="search-container">
+      <form (submit)="search(imgSrchInput.value, $event)">
+        <input
+          #imgSrchInput
+          id="img-search-input"
+          placeholder="Search for photos"
+        />
+        <button aria-label="Search Button" type="submit">
+          <mat-icon aria-label="Example home icon"> search </mat-icon>
+        </button>
+      </form>
+    </div>
+
+    <div class="images-container">
+      <figure
+        *ngFor="let image of images; index as i"
+        (click)="openModal(image)"
+      >
+        <img
+          class="image"
+          title="photo by {{ image.photographer }}"
+          alt="Image {{ i + 1 }}"
+          src="{{ image.src.medium }}"
+        />
+      </figure>
+    </div>
   </div>
 
-  <div class="images-container">
-    <figure *ngFor="let image of images; index as i" (click)="openModal(image)">
-      <img
-        class="image"
-        title="photo by {{ image.photographer }}"
-        alt="Image {{ i + 1 }}"
-        src="{{ image.src.medium }}"
-      />
-    </figure>
-  </div>
-  <div #loading>
-    <div *ngIf="images.length > 0" class="spinner-container">
+  <div #spinner>
+    <div *ngIf="loading || images.length > 0" class="spinner-container">
       <mat-spinner diameter="50"></mat-spinner>
     </div>
   </div>

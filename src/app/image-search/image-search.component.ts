@@ -12,7 +12,6 @@ import { ImageModalComponent } from '../image-modal/image-modal.component';
 import { AfterViewInit } from '@angular/core';
 import { Subject } from 'rxjs';
 import { ImgApiResponse } from '../types/ApiResponse';
-import { RESPONSE } from './mock-search-response';
 import { Query } from '../media-service/Query';
 
 @Component({
@@ -21,8 +20,9 @@ import { Query } from '../media-service/Query';
   styleUrls: ['./image-search.component.scss'],
 })
 export class ImageSearchComponent implements OnInit, OnDestroy, AfterViewInit {
-  @ViewChild('loading') loadingIndicator: ElementRef<HTMLElement>;
-  images: Image[] = RESPONSE.photos; //[]; TODO: Remove after testing
+  @ViewChild('spinner') spinner: ElementRef<HTMLElement>;
+  images: Image[] = [];
+  loading: boolean = false;
   private observer: IntersectionObserver;
   private imageStream = new Subject<Image[]>();
   private currentQuery: Query<ImgApiResponse>;
@@ -45,7 +45,7 @@ export class ImageSearchComponent implements OnInit, OnDestroy, AfterViewInit {
       },
       {}
     );
-    this.observer.observe(this.loadingIndicator.nativeElement);
+    this.observer.observe(this.spinner.nativeElement);
   }
 
   ngOnDestroy(): void {
@@ -60,9 +60,14 @@ export class ImageSearchComponent implements OnInit, OnDestroy, AfterViewInit {
    */
   search(term: string, event: Event): void {
     event.preventDefault();
+
+    if (!term?.trim()) return;
+
+    this.loading = true;
     this.mediaService
       .searchImages(term)
       .subscribe((query: Query<ImgApiResponse>) => {
+        this.loading = false;
         this.images = [];
         this.imageStream.next(query.response.photos);
         this.currentQuery = query;
