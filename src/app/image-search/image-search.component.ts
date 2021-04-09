@@ -25,7 +25,7 @@ export class ImageSearchComponent implements OnInit, OnDestroy, AfterViewInit {
   images: Image[] = RESPONSE.photos; //[]; TODO: Remove after testing
   private observer: IntersectionObserver;
   private imageStream = new Subject<Image[]>();
-  private currentQuery: Query;
+  private currentQuery: Query<ImgApiResponse>;
 
   constructor(private mediaService: MediaService, private dialog: MatDialog) {}
 
@@ -60,11 +60,13 @@ export class ImageSearchComponent implements OnInit, OnDestroy, AfterViewInit {
    */
   search(term: string, event: Event): void {
     event.preventDefault();
-    this.mediaService.searchImages(term).subscribe((query: Query) => {
-      this.images = [];
-      this.imageStream.next(query.mediaResults);
-      this.currentQuery = query;
-    });
+    this.mediaService
+      .searchImages(term)
+      .subscribe((query: Query<ImgApiResponse>) => {
+        this.images = [];
+        this.imageStream.next(query.response.photos);
+        this.currentQuery = query;
+      });
   }
 
   /**

@@ -1,22 +1,16 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { ImgApiResponse } from '../types/ApiResponse';
-import { Image } from '../types/Image';
+import { ApiResponse } from '../types/ApiResponse';
 
-// TODO: generify for videos (generify service?)
-export class Query {
+/**
+ * Flyweight-like class holding query state and actions
+ */
+export class Query<T extends ApiResponse> {
   constructor(
+    public response: T,
     private http: HttpClient,
-    private response: ImgApiResponse,
     private httpOptions: { headers: HttpHeaders }
   ) {}
-
-  /**
-   * Results of the query
-   */
-  get mediaResults(): Image[] {
-    return this.response.photos;
-  }
 
   /**
    * Report whether query has more results
@@ -28,10 +22,7 @@ export class Query {
   /**
    * Get the next page of query results
    */
-  nextPage(): Observable<ImgApiResponse> {
-    return this.http.get<ImgApiResponse>(
-      this.response.next_page,
-      this.httpOptions
-    );
+  nextPage(): Observable<T> {
+    return this.http.get<T>(this.response.next_page, this.httpOptions);
   }
 }
