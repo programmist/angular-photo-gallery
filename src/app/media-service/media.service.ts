@@ -9,6 +9,11 @@ import { Query } from './Query';
   providedIn: 'root',
 })
 export class MediaService {
+  private static BASE_URLS = {
+    image: 'https://api.pexels.com/v1/search',
+    video: 'https://api.pexels.com/videos',
+  };
+
   // FIXME: Get from environment variable instead (.env)
   private API_KEY = '563492ad6f917000010000011e0c663dc7004d84affdeeb485a38207';
   private httpOptions = {
@@ -16,10 +21,6 @@ export class MediaService {
       Authorization: this.API_KEY,
       'Content-Type': 'application/json',
     }),
-  };
-  private static BASE_URLs = {
-    image: 'https://api.pexels.com/v1/search',
-    video: 'https://api.pexels.com/videos',
   };
 
   constructor(private http: HttpClient) {}
@@ -36,7 +37,7 @@ export class MediaService {
     perPage = 30,
     page = 0
   ): Observable<Query<ImgApiResponse>> {
-    const baseUrl = MediaService.BASE_URLs.image;
+    const baseUrl = MediaService.BASE_URLS.image;
     const searchUrl = `${baseUrl}?query=${term}&per_page=${perPage}&page=${page}`;
     return this.http
       .get<ImgApiResponse>(searchUrl, this.httpOptions)

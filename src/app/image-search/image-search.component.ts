@@ -21,9 +21,9 @@ import { Query } from '../media-service/Query';
 })
 export class ImageSearchComponent implements OnInit, OnDestroy, AfterViewInit {
   @ViewChild('spinner') spinner: ElementRef<HTMLElement>;
-  searchTerm: string = '';
+  searchTerm = '';
+  loading = false;
   images: Image[] = [];
-  loading: boolean = false;
   private observer: IntersectionObserver;
   private imageStream = new Subject<Image[]>();
   private currentQuery: Query<ImgApiResponse>;
@@ -62,7 +62,9 @@ export class ImageSearchComponent implements OnInit, OnDestroy, AfterViewInit {
   search(term: string, event: Event): void {
     event.preventDefault();
 
-    if (!term?.trim()) return;
+    if (!term?.trim()) {
+      return;
+    }
 
     this.searchTerm = term;
     this.loading = true;
