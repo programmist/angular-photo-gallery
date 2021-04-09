@@ -1,14 +1,22 @@
 #search-component {
   .search-container {
-    border: 0;
     border-radius: 6px;
     margin: auto;
-    width: 50%;
     margin-bottom: 50px;
     border: 1px solid #ccc;
+    width: 50%;
+
+    @media only screen and (max-width: 655px) {
+      width: 95%;
+      border: 0;
+    }
 
     form {
       display: flex;
+
+      @media only screen and (max-width: 655px) {
+        flex-direction: column;
+      }
 
       input {
         display: block;
@@ -22,6 +30,12 @@
         color: #555;
         padding: 0.9rem 1.25rem;
         font-size: 22px;
+
+        @media only screen and (max-width: 655px) {
+          border: 1px solid #ccc;
+          border-radius: 6px;
+          margin-bottom: 5px;
+        }
       }
 
       button {
@@ -41,6 +55,22 @@
           font-weight: bold;
         }
       }
+
+      @media only screen and (max-width: 655px) {
+        button {
+          border: 0;
+          outline: 0;
+          border-radius: 6px;
+          cursor: pointer;
+          background-color: #3f51b5;
+          color: white;
+          padding: 15px;
+          text-align: base;
+          font-size: 16px;
+          display: flex;
+          align-items: center;
+        }
+      }
     }
   }
 
@@ -49,6 +79,8 @@
     grid-gap: 45px;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     grid-auto-rows: 300px;
+    width: 95%;
+    margin: auto;
 
     figure {
       margin: 0;
