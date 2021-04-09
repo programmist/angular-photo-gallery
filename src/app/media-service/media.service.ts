@@ -2,8 +2,9 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { ApiResponse, ImgApiResponse } from '../types/ApiResponse';
+import { ImgApiResponse } from '../types/ApiResponse';
 import { Query } from './Query';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root',
@@ -14,8 +15,8 @@ export class MediaService {
     video: 'https://api.pexels.com/videos',
   };
 
-  // FIXME: Get from environment variable instead (.env)
-  private API_KEY = '563492ad6f917000010000011e0c663dc7004d84affdeeb485a38207';
+  // For development-purposes only. Not secure.
+  private API_KEY = environment.PEXELS_API_KEY;
   private httpOptions = {
     headers: new HttpHeaders({
       Authorization: this.API_KEY,
